@@ -104,6 +104,24 @@ catalog:
     #   rules:
     #     - allow: [User, Group]
 
+  providers:
+    github:
+      # GitHub Discovery - リポジトリからカタログエンティティを自動検出
+      providerId:
+        organization: 'my-org' # GitHub Organization名に変更してください
+        catalogPath: '/catalog-info.yaml'
+        schedule:
+          frequency: { minutes: 30 }
+          timeout: { minutes: 3 }
+    githubOrg:
+      # GitHub Org - Organization のユーザーとチームを自動インポート
+      id: production
+      githubUrl: https://github.com
+      orgs: ['my-org'] # GitHub Organization名に変更してください
+      schedule:
+        frequency: { minutes: 30 }
+        timeout: { minutes: 3 }
+
 kubernetes:
   # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
