@@ -7,8 +7,12 @@
  */
 
 import { createBackend } from '@backstage/backend-defaults';
+import { tokenManagerServiceFactory } from './tokenManagerCompat';
 
 const backend = createBackend();
+
+// Backward-compatible tokenManager for plugins using deprecated core.tokenManager
+backend.add(tokenManagerServiceFactory);
 
 backend.add(import('@backstage/plugin-app-backend'));
 backend.add(import('@backstage/plugin-proxy-backend'));
