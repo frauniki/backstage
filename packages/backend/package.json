@@ -44,6 +44,8 @@
     "@backstage/plugin-search-backend-module-techdocs": "^0.4.11",
     "@backstage/plugin-search-backend-node": "^1.4.1",
     "@backstage/plugin-signals-backend": "^0.3.12",
+    "@backstage/plugin-tech-insights-backend": "^0.5.32",
+    "@backstage/plugin-tech-insights-backend-module-jsonfc": "^0.1.50",
     "@backstage/plugin-techdocs-backend": "^2.1.5",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",

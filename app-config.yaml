@@ -129,3 +129,146 @@ kubernetes:
 permission:
   # setting this to `false` will disable permissions
   enabled: true
+
+techInsights:
+  factRetrievers:
+    entityMetadataFactRetriever:
+      cadence: '0 */1 * * *' # 1時間ごと
+      lifecycle:
+        timeToLive: { hours: 24 }
+    entityOwnershipFactRetriever:
+      cadence: '0 */1 * * *'
+      lifecycle:
+        timeToLive: { hours: 24 }
+  checks:
+    # --- インフラ設定 ---
+    - id: has-resource-limits
+      name: Resource Limits 設定済み
+      description: readiness/resource-limits annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/resource-limits
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-hpa
+      name: HPA 設定済み
+      description: readiness/hpa annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/hpa
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-pdb
+      name: PDB 設定済み
+      description: readiness/pdb annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/pdb
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    # --- 監視・アラート ---
+    - id: has-runbook
+      name: Runbook 作成済み
+      description: readiness/runbook annotation（URL）が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/runbook
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-slo
+      name: SLO 定義済み
+      description: readiness/slo annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/slo
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-monitoring
+      name: Datadog モニター設定済み
+      description: readiness/datadog-monitor annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/datadog-monitor
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    # --- 運用体制 ---
+    - id: has-oncall
+      name: オンコール設定済み
+      description: readiness/oncall annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/oncall
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-owner
+      name: Owner が設定されている
+      description: spec.owner が設定されているか
+      factRef: entityOwnershipFactRetriever/hasOwner
+      rule:
+        conditions:
+          all:
+            - fact: hasOwner
+              operator: equal
+              value: true
+
+    # --- テスト・品質 ---
+    - id: has-load-test
+      name: 負荷テスト実施済み
+      description: readiness/load-test annotation（実施日）が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/load-test
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true
+
+    - id: has-dr-plan
+      name: DR 計画レビュー済み
+      description: readiness/dr-plan annotation が設定されているか
+      factRef: entityMetadataFactRetriever/hasAnnotation
+      params:
+        annotation: readiness/dr-plan
+      rule:
+        conditions:
+          all:
+            - fact: hasAnnotation
+              operator: equal
+              value: true

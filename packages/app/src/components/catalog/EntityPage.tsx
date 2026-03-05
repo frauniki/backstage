@@ -57,6 +57,10 @@ import {
   EntityKubernetesContent,
   isKubernetesAvailable,
 } from '@backstage/plugin-kubernetes';
+import {
+  EntityTechInsightsScorecardContent,
+  EntityTechInsightsScorecardCard,
+} from '@backstage/plugin-tech-insights';
 
 const techdocsContent = (
   <EntityTechdocsContent>
@@ -134,6 +138,9 @@ const overviewContent = (
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
 
+    <Grid item md={6} xs={12}>
+      <EntityTechInsightsScorecardCard title="Production Readiness" />
+    </Grid>
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
@@ -181,6 +188,10 @@ const serviceEntityPage = (
           <EntityDependsOnResourcesCard variant="gridItem" />
         </Grid>
       </Grid>
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/tech-insights" title="Scorecard">
+      <EntityTechInsightsScorecardContent title="Production Readiness" />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">
@@ -235,6 +246,10 @@ const defaultEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route path="/tech-insights" title="Scorecard">
+      <EntityTechInsightsScorecardContent title="Production Readiness" />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/docs" title="Docs">

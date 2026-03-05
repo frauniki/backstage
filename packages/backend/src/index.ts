@@ -61,6 +61,12 @@ backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 // kubernetes plugin
 backend.add(import('@backstage/plugin-kubernetes-backend'));
 
+// tech-insights plugin
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+backend.add(import('@backstage/plugin-tech-insights-backend') as any);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+backend.add(import('@backstage/plugin-tech-insights-backend-module-jsonfc') as any);
+
 // notifications and signals plugins
 backend.add(import('@backstage/plugin-notifications-backend'));
 backend.add(import('@backstage/plugin-signals-backend'));
